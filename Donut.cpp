@@ -1,23 +1,26 @@
 #include <string>
 #include <iostream>
-#include "Classic.h"
+#include "Donut.h"
 using namespace std;
-Classic::Classic(int** input, int row, int col)
+Donut::Donut(int** input, int row, int col)
 {
   this->grid = input;
   this->length = row;
   this->width = col;
 }
-int Classic::neighbors(int row, int col)
+int Donut::mod(int n, int m)
+{
+  return (n+=m) % m; //so that mod works for negatives
+}
+int Donut::neighbors(int row, int col)
 {
   int count = 0;
-  for(int i = row-1; i <= row+1; i++)                                //loop through three bordering rows
-    for(int j = col-1; j <= col+1; j++)                              //loop through three bordering cols
-      if(i >= 0 && i < this->length && j >= 0 && j < this->width)                //check bounds
-         count += this->grid[i][j];                                        //since grid vals are 0 and 1, if we sum all the vals, we get neighbors
-  return count - this->grid[row][col];                                     //subtract itself, since we dont want to count that value
+  for(int i = row-1; i <= row+1; i++)                                           //loop through rows that border index
+    for(int j = col-1; j <= col+1; j++)                                         //loop through cols that border index
+      count += this->grid[mod(i,this->length)][mod(j,this->width)];                               //mod by length gives our desired index
+  return count - this->grid[row][col];                                                //subtract by itself, since the loop counts itself as a neighbor
 }
-void Classic::generation()
+void Donut::generation()
 {
   this->temp = new int*[this->length];
   for(int i = 0; i < this->length; ++i)
@@ -33,7 +36,7 @@ void Classic::generation()
       //If it currently has a cell, the cell lives on.  If it’s empty, a new cell is born.
       //A location with four or more neighbors will be empty in the next generation due to overcrowding.
       int n = neighbors(i,j);
-      cout << n;
+      //cout << n;
       if(n <= 1)
         this->temp[i][j] = 0;
       //do nothing if == 2
@@ -42,17 +45,17 @@ void Classic::generation()
       else if(n <= 4)
         this->temp[i][j] = 0;
     }
-    cout << endl;
+    //cout << endl;
   }
   for(int i = 0; i < this->length; ++i)
     for(int j = 0; j < this->width; ++j)
       this->grid[i][j] = this->temp[i][j];
 }
-bool Classic::stabilized()
+bool Donut::stabilized()
 {
   return false;
 }
-void Classic::display()
+void Donut::display()
 {
   for(int i = 0; i < this->length; i++)
   {

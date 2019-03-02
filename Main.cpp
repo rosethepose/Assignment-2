@@ -2,21 +2,22 @@
 #include <iostream>
 #include <string>
 #include "Classic.h"
+#include "Donut.h"
 using namespace std;
 char** randFile(int row, int col);
-void display(Classic board);
-void displayPause(Classic board);
+void display(Donut* board);
+void displayPause(Donut* board);
 
 int main(int argc, char** argv)
 {
 	char option1, mode, option3;
 	cout << "Press R for a random configuration, Press F to input a file." << endl;
 	cin >> option1;
-	int row, col; //dimensions of grid
+	int row, col; 																										 //dimensions of grid
 	int** grid;
-	if(option1 == 'R' || option1 == 'r')//generate random file
+	if(option1 == 'R' || option1 == 'r')                               //generate random file
 	{
-		cout << "Enter the Dimensions of the grid\nNumber of Rows: ";
+		cout << "Enter the Dimensions of the grid\nNumber of Rows: "; 	 //user defined dimensions
 		cin >> row;
 		cout << "Number of Columns: ";
 		cin >> col;
@@ -24,6 +25,7 @@ int main(int argc, char** argv)
 	}
 	else if(option1 == 'F' || option1 == 'f')
 	{
+    //read file
 		string path;
 		cout << "File Name: ";
 		cin >> path;
@@ -31,20 +33,20 @@ int main(int argc, char** argv)
 		file.open(path, ifstream::in);
 		string rows, cols;
 		if(!file.eof())
-			getline(file, rows);
+			getline(file, rows); 																					 //read first two lines for dimenstions(this is a string)
 		if(!file.eof())
 			getline(file, cols);
-		row = stoi(rows);
+		row = stoi(rows);                                                //read int from string dimensions
 		col = stoi(cols);
 		grid = new int*[row];
-		for(int i = 0; i < row; i++)
+		for(int i = 0; i < row; i++) 																		 //loop thru rest of file
 		{
 			grid[i] = new int[col];
-			string line;
+			string line; 																									 //local var line to hold one line at a time as we read
 			getline(file, line);
 			for(int j = 0; j < line.length(); j++)
 			{
-				if(line[j] == 'X')
+				if(line[j] == 'X')																					 //index of line corresponds to index of row, line index
 					grid[i][j] = 1;
 				if(line[j] == '-')
 					grid[i][j] = 0;
@@ -54,10 +56,10 @@ int main(int argc, char** argv)
 	}
 	cout << "Enter C for Classic Mode, D for Doughnut Mode, M for Mirror Mode. "; //promt boundary mode
 	cin >> mode;
-	Mode board;
+	//Mode board;
 	if(mode == 'C' || mode == 'c')
 	{
-		board = Classic(grid, row, col);
+		//board = Classic(grid, row, col);
 	}
 	else if(mode == 'D' || mode == 'd')
 	{
@@ -67,25 +69,19 @@ int main(int argc, char** argv)
 	{
 		//implement later
 	}
-	board.display();
-/*
-	cout << board.neighbors(1,0) << endl;
-	cout << board.neighbors(1,1) << endl;
-	cout << board.neighbors(1,2) << endl;
-	cout << board.neighbors(1,3) << endl;
-	cout << board.neighbors(1,4) << endl;
-	cout << board.neighbors(1,5) << endl;
-	cout << board.neighbors(1,6) << endl; */
-
+	Donut* board = new Donut(grid, row, col);
+	board->display();
 	cout << "would you like a pause(P) between generations,\nor would you like to press enter(E) between generations? ";
 	cin >> option3;
 	if(option3 == 'P' || option3 == 'p')
 	{
-		displayPause(board);
+		for(int i = 0; i < 5; i++)
+			displayPause(board);
 	}
 	else if(option3 == 'E' || option3 == 'e')
 	{
-		display(board);
+		for(int i = 0; i < 5; i++)
+			display(board);
 	}
 	return 0;
 }
@@ -93,13 +89,13 @@ char** randFile(int row, int col)
 {
 	return new char*[0];
 }
-void display(Mode board)
+void display(Donut* board)
 {
-	board.generation();
-	board.display();
+	board->generation();
+	board->display();
 }
-void displayPause(Mode board)
+void displayPause(Donut* board)
 {
-	board.generation();
-	board.display();
+	board->generation();
+	board->display();
 }

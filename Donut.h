@@ -1,13 +1,14 @@
 #include <string>
 using namespace std;
-class Classic
+class Donut
 {
   public:
-    Classic(int** input, int row, int col);
+    Donut(int** input, int row, int col);
     void generation();
     int neighbors(int row, int col);
     bool stabilized();
     void display();
+    int mod(int n, int m);
   private:
     int** grid;
     int** temp;
