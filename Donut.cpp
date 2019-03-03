@@ -63,4 +63,5 @@ void Donut::display()
       cout << this->grid[i][j] << " ";
     cout << endl;
   }
+  cout << endl;
 }

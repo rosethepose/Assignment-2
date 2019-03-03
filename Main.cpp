@@ -3,10 +3,11 @@
 #include <string>
 #include "Classic.h"
 #include "Donut.h"
+#include "Mirror.h"
 using namespace std;
 char** randFile(int row, int col);
-void display(Donut* board);
-void displayPause(Donut* board);
+void display(Mirror* board);
+void displayPause(Mirror* board);
 
 int main(int argc, char** argv)
 {
@@ -69,7 +70,7 @@ int main(int argc, char** argv)
 	{
 		//implement later
 	}
-	Donut* board = new Donut(grid, row, col);
+	Mirror* board = new Mirror(grid, row, col);
 	board->display();
 	cout << "would you like a pause(P) between generations,\nor would you like to press enter(E) between generations? ";
 	cin >> option3;
@@ -89,12 +90,12 @@ char** randFile(int row, int col)
 {
 	return new char*[0];
 }
-void display(Donut* board)
+void display(Mirror* board)
 {
 	board->generation();
 	board->display();
 }
-void displayPause(Donut* board)
+void displayPause(Mirror* board)
 {
 	board->generation();
 	board->display();

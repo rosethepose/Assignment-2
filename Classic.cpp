@@ -60,4 +60,5 @@ void Classic::display()
       cout << this->grid[i][j] << " ";
     cout << endl;
   }
+  cout << endl;
 }
