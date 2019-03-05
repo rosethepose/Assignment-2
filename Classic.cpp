@@ -33,7 +33,7 @@ void Classic::generation()
       //If it currently has a cell, the cell lives on.  If it’s empty, a new cell is born.
       //A location with four or more neighbors will be empty in the next generation due to overcrowding.
       int n = neighbors(i,j);
-      cout << n;
+      //cout << n;
       if(n <= 1)
         this->temp[i][j] = 0;
       //do nothing if == 2
@@ -42,7 +42,7 @@ void Classic::generation()
       else if(n <= 4)
         this->temp[i][j] = 0;
     }
-    cout << endl;
+    //cout << endl;
   }
   for(int i = 0; i < this->length; ++i)
     for(int j = 0; j < this->width; ++j)
@@ -57,8 +57,30 @@ void Classic::display()
   for(int i = 0; i < this->length; i++)
   {
     for(int j = 0; j < this->width; j++)
-      cout << this->grid[i][j] << " ";
+    {
+      if(this->grid[i][j])
+        cout << "X ";
+      else
+        cout << "- ";
+    }
     cout << endl;
   }
   cout << endl;
+}
+string Classic::displayString()
+{
+  string out = "";
+  for(int i = 0; i < this->length; i++)
+  {
+    for(int j = 0; j < this->width; j++)
+    {
+      if(this->grid[i][j])
+        out += "X ";
+      else
+        out += "- ";
+    }
+    out += "\n";
+  }
+  out += "\n";
+  return out;
 }

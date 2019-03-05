@@ -9,6 +9,7 @@ class Donut
     bool stabilized();
     void display();
     int mod(int n, int m);
+    string displayString();
   private:
     int** grid;
     int** temp;

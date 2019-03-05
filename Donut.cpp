@@ -60,8 +60,30 @@ void Donut::display()
   for(int i = 0; i < this->length; i++)
   {
     for(int j = 0; j < this->width; j++)
-      cout << this->grid[i][j] << " ";
+    {
+      if(this->grid[i][j])
+        cout << "X ";
+      else
+        cout << "- ";
+    }
     cout << endl;
   }
   cout << endl;
+}
+string Donut::displayString()
+{
+  string out = "";
+  for(int i = 0; i < this->length; i++)
+  {
+    for(int j = 0; j < this->width; j++)
+    {
+      if(this->grid[i][j])
+        out += "X ";
+      else
+        out += "- ";
+    }
+    out += "\n";
+  }
+  out += "\n";
+  return out;
 }

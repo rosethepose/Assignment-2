@@ -17,7 +17,7 @@ int Mirror::neighbors(int row, int col)
       if(i >= 0 && i < this->length && j >= 0 && j < this->width)               //check bounds
          count += this->grid[i][j];                                             //since grid vals are 0 and 1, if we sum all the vals, we get neighbors
       else if(i < 0 && j < 0)                                                   //top left corner
-        count += this->grid[row][col];
+        count += this->grid[row][col];                                          //corner cases will always mirror the center value (row,col)
       else if(i < 0 && j >= this->width)                                        //top right corner
         count += this->grid[row][col];
       else if(i >= this->length && j < 0)                                       //bottom left corner
@@ -75,8 +75,30 @@ void Mirror::display()
   for(int i = 0; i < this->length; i++)
   {
     for(int j = 0; j < this->width; j++)
-      cout << this->grid[i][j] << " ";
+    {
+      if(this->grid[i][j])
+        cout << "X ";
+      else
+        cout << "- ";
+    }
     cout << endl;
   }
   cout << endl;
+}
+string Mirror::displayString()
+{
+  string out = "";
+  for(int i = 0; i < this->length; i++)
+  {
+    for(int j = 0; j < this->width; j++)
+    {
+      if(this->grid[i][j])
+        out += "X ";
+      else
+        out += "- ";
+    }
+    out += "\n";
+  }
+  out += "\n";
+  return out;
 }
