@@ -1,17 +1,18 @@
+#ifndef MODE_H
+#define MODE_H
 #include <string>
+#include "Mode.h"
 using namespace std;
-class Donut
+class Donut : public Mode
 {
   public:
     Donut(int** input, int row, int col);
-    void generation();
+    ~Donut();
     int neighbors(int row, int col);
-    bool stabilized();
-    void display();
     int mod(int n, int m);
-    string displayString();
   private:
     int** grid;
     int** temp;
     int length, width;
 };
+#endif

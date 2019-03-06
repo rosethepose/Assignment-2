@@ -1,16 +1,17 @@
+#ifndef MODE_H
+#define MODE_H
 #include <string>
+#include "Mode.h"
 using namespace std;
-class Mirror
+class Mirror : public Mode
 {
   public:
     Mirror(int** input, int row, int col);
-    void generation();
+    ~Mirror();
     int neighbors(int row, int col);
-    bool stabilized();
-    void display();
-    string displayString();
   private:
     int** grid;
     int** temp;
     int length, width;
 };
+#endif
